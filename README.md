@@ -18,6 +18,10 @@ This simple web application allows users to send HTTP POST requests to a webhook
 
 - In a production environment, consider implementing additional security measures and error handling.
 
+## Other
+
+- You can use smee.io to create a reverse proxy over HTTP'S.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
