@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Sender</title>
+</head>
+<body>
+    <h1>Webhook Sender</h1>
+
+    <label for="webhookUrl">Webhook URL:</label>
+    <input type="text" id="webhookUrl" placeholder="Enter Webhook URL" required>
+    
+    <br>
+
+    <label for="jsonPayload">JSON Payload:</label>
+    <textarea id="jsonPayload" placeholder="Enter JSON Payload" rows="4" required></textarea>
+
+    <br>
+
+    <button onclick="sendWebhookRequest()">Send Webhook</button>
+
+    <script>
+        function sendWebhookRequest() {
+            const webhookUrl = document.getElementById('webhookUrl').value;
+            const jsonPayload = document.getElementById('jsonPayload').value;
+
+            try {
+                const parsedPayload = JSON.parse(jsonPayload);
+
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(parsedPayload),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Webhook request failed with status: ${response.status}`);
+                    }
+                    console.log('Webhook request successful!');
+                })
+                .catch(error => {
+                    console.error('Error sending webhook request:', error.message);
+                });
+            } catch (error) {
+                console.error('Invalid JSON format:', error.message);
+            }
+        }
+    </script>
+</body>
+</html>
